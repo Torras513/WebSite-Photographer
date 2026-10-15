@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portefólio Rodrigo Paulo</title>
+    <link rel="icon" type="image/png" href="imagens/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <!-- Logo e Marca -->
+            <a href="/" class="logo">
+                <img src="imagens/logo.png" alt="Logo Rodrigo Rosa" class="logo-image">
+                <span class="logo-text">Rodrigo <strong>Rosa</strong></span>
+            </a>
+
+            <!-- 1. ÍCONE HAMBÚRGUER (Obrigatório para o toque no Mobile abrir o menu) -->
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Abrir Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <!-- 2. GAVETA DO MENU (Abre no mobile e alinha no desktop) -->
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/" class="active">Início</a></li>
+                    <li><a href="portefolio">Portefólio</a></li>
+
+                    <!-- Opções de Autenticação geridas pelo navbar.js -->
+                    <li><a href="login" class="nav-cta">LOGIN</a></li>
+                    <li style="display: none;"><a href="#" id="logoutBtn" class="btn-logout">LOGOUT</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <section class="profile-section">
+        <div class="profile-card">
+
+            <div class="profile-photo-container">
+                <img src="imagens/minha-foto.webp" alt="Minha Foto de Perfil" class="profile-photo">
+            </div>
+
+            <div class="profile-text">
+                <h2>Olá, eu sou Rodrigo</h2>
+                <p>
+                    Sou um entusiasta da fotografia, apaixonado por capturar a essência de momentos e paisagens. Utilizo
+                    uma Canon EOS 250D para registar o que vejo, focando-me sobretudo no ramo automóvel, mas também em
+                    luz natural, retratos e arquitetura. Este espaço é o meu arquivo visual.
+                </p>
+                <a href="https://wa.me/351910228079?text=Olá! Vi o teu portfólio de fotografia e gostava de falar contigo."
+                    class="contact-link" target="_blank">
+                    Enviar mensagem no WhatsApp →
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="album-grid">
+            <a href="galeria-carros" class="album-card">
+                <img src="imagens/capa-carros.webp" alt="Capa do Álbum">
+                <div class="album-info">
+                    <h2>Eventos de carros</h2>
+                    <p>Fotografias que tirei em eventos</p>
+                </div>
+            </a>
+
+            <a href="galeria-sessoes" class="album-card">
+                <img src="imagens/capa-sessoes.webp" alt="Capa do Álbum">
+                <div class="album-info">
+                    <h2>Sessões de fotos</h2>
+                    <p>Fotografias tiradas a pessoas</p>
+                </div>
+            </a>
+
+            <a href="galeria-paisagens" class="album-card">
+                <img src="imagens/capa-paisagens.jpg" alt="Capa do Álbum">
+                <div class="album-info">
+                    <h2>Paisagens/Objetos</h2>
+                    <p>Fotografias tiradas ao horizonte<br>Fotografias tiradas a Objetos</p>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="ano-atual"></span> Rodrigo Miguel Rosa Paulo. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById("ano-atual").textContent = new Date().getFullYear();
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', event => {
+                event.preventDefault();
+                localStorage.removeItem('loggedIn');
+                localStorage.removeItem('username');
+                window.location.href = 'login';
+            });
+        }
+    </script>
+    <script src="js/navbar.js?v=20261009b"></script>
+
+</body>
+
+</html>

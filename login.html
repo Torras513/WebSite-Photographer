@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar | Portefólio Rodrigo Paulo</title>
+    <link rel="icon" type="image/png" href="imagens/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <!-- Logo e Marca -->
+            <a href="/" class="logo">
+                <img src="imagens/logo.png" alt="Logo Rodrigo Rosa" class="logo-image">
+                <span class="logo-text">Rodrigo <strong>Rosa</strong></span>
+            </a>
+
+            <!-- 1. ÍCONE HAMBÚRGUER (Obrigatório para o toque no Mobile abrir o menu) -->
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Abrir Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <!-- 2. GAVETA DO MENU (Abre no mobile e alinha no desktop) -->
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/" class="active">Início</a></li>
+                    <li><a href="portefolio">Portefólio</a></li>
+
+                    <!-- Opções de Autenticação geridas pelo navbar.js -->
+                    <li><a href="login" class="nav-cta">LOGIN</a></li>
+                    <li style="display: none;"><a href="#" id="logoutBtn" class="btn-logout">LOGOUT</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="login-container">
+        <div class="login-box">
+            <h2>Entrar</h2>
+            <p>Faça login para aceder ao portefólio privado e às suas definições.</p>
+
+            <form id="loginForm">
+                <input type="text" id="username" name="username" placeholder="Utilizador ou Email" required autocomplete="username">
+
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Palavra-passe" required autocomplete="current-password">
+                    <button type="button" id="togglePassword" aria-label="Mostrar palavra-passe">👁️</button>
+                </div>
+
+                <button type="submit" class="btn-login">Entrar</button>
+                <p id="error" style="display: none;"></p>
+            </form>
+
+            <p style="margin-top: 22px; color: var(--text-muted); font-size: 0.9rem;">
+                Não tem conta? <a href="https://wa.me/35191910228079" target="_blank" style="color: var(--bronze); text-decoration: none;">Contacte-me no WhatsApp</a>.
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="ano-atual"></span> Rodrigo Miguel Rosa Paulo. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Ficheiro de Script Externo -->
+    <script src="js/login.js?v=20261009b"></script>
+    <script src="js/navbar.js?v=20261009b"></script>
+</body>
+</html>
