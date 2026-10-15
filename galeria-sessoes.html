@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="imagens/favicon.png">
+    <title>Galeria - Sessões | Rodrigo Rosa</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/galeria.css?v=20261009d">
+</head>
+<body class="gallery-page">
+    <header class="main-header">
+        <div class="nav-container">
+            <!-- Logo e Marca -->
+            <a href="/" class="logo">
+                <img src="imagens/logo.png" alt="Logo Rodrigo Rosa" class="logo-image">
+                <span class="logo-text">Rodrigo <strong>Rosa</strong></span>
+            </a>
+
+            <!-- ÍCONE HAMBÚRGUER -->
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Abrir Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <!-- GAVETA DO MENU -->
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/">Início</a></li>
+                    <li><a href="portefolio">Portefólio</a></li>
+
+                    <!-- Opções de Autenticação -->
+                    <li><a href="login" class="nav-cta">LOGIN</a></li>
+                    <li style="display: none;"><a href="#" id="logoutBtn" class="btn-logout">LOGOUT</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="event-info">
+            <div class="info-item">
+                <div class="info-content">
+                    <span class="info-label">Categoria</span>
+                    <span class="info-value">Sessões de Fotografia</span>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-content">
+                    <span class="info-label">Estilo</span>
+                    <span class="info-value">Retratos e Ambiente</span>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-content">
+                    <span class="info-label">Acesso</span>
+                    <span class="info-value">Protegido por login</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SELETOR DE SESSÕES (NOVO) -->
+        <div class="session-selector-container" style="margin: 20px 0 30px 0; text-align: center;">
+            <label for="sessaoSelect" style="color: #ccc; font-weight: 500; font-size: 0.95rem; margin-right: 12px;">
+                Selecionar Sessão:
+            </label>
+            <select id="sessaoSelect" style="padding: 10px 16px; border-radius: 8px; background: #1a1a1a; color: #fff; border: 1px solid #333; font-size: 0.95rem; cursor: pointer; outline: none; transition: border-color 0.3s ease;">
+                <option value="">A carregar sessões...</option>
+            </select>
+        </div>
+
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <!-- Slide inicial de carregamento -->
+                <div class="swiper-slide">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23111111'/%3E%3Ctext x='400' y='320' fill='%23aaa' font-size='28' text-anchor='middle' font-family='Inter, sans-serif'%3ECarregando galeria...%3C/text%3E%3C/svg%3E" alt="A carregar...">
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="download-container">
+            <a href="#" class="btn-download download-link">
+                Descarregar Fotografia Original →
+            </a>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/swiper-setas.js?v=20261009d"></script>
+    <script src="js/navbar.js?v=20261009d"></script>
+    <script src="js/galeria-sessoes.js?v=20261009d"></script>
+</body>
+</html>

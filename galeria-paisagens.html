@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="imagens/favicon.png">
+    <title>Galeria - Paisagens | Rodrigo Rosa</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/galeria.css?v=20261009d">
+</head>
+<body data-galeria="galeria-paisagens">
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="imagens/logo.png" alt="Logo Rodrigo Rosa" class="logo-image">
+                <span class="logo-text">Rodrigo <strong>Rosa</strong></span>
+            </a>
+
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Abrir Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/" class="active">Início</a></li>
+                    <li><a href="portefolio">Portefólio</a></li>
+                    <li><a href="login" class="nav-cta">LOGIN</a></li>
+                    <li style="display: none;"><a href="#" id="logoutBtn" class="btn-logout">LOGOUT</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contentor onde o JS injeta todas as galerias de eventos -->
+    <div id="galerias-publicas-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/swiper-setas.js?v=20261009d"></script>
+    <script src="js/navbar.js?v=20261009d"></script>
+    <script src="js/galeria-publica.js?v=20261009d"></script>
+</body>
+</html>

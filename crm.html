@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel CRM — Rodrigo Rosa</title>
+    <link rel="icon" type="image/png" href="imagens/favicon.png">
+
+    <!-- Estilos Globais + Estilos do CRM -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/crm.css">
+</head>
+
+<body class="crm-body">
+
+    <div class="crm-container">
+
+        <!-- SIDEBAR LATERAL -->
+        <aside class="crm-sidebar">
+            <div>
+                <div class="crm-brand">
+                    <img src="imagens/logo.png" alt="Logo">
+                    <span>CRM <strong>Foto</strong></span>
+                </div>
+
+                <nav>
+                    <ul class="crm-nav">
+                        <li><a href="#" data-target="view-dashboard" class="nav-link active">📊 Dashboard</a></li>
+                        <li><a href="#" data-target="view-clientes" class="nav-link">👤 Clientes</a></li>
+                        <li><a href="#" data-target="view-galerias" class="nav-link">🖼️ Galerias Clientes</a></li>
+                        <li><a href="#" data-target="view-galerias-publicas" class="nav-link">🌐 Galerias Públicas</a></li>
+                        <li><a href="#" data-target="view-configuracoes" class="nav-link">⚙️ Configurações</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="crm-footer">
+                <a href="/" class="btn-crm-secondary">
+                    ← Voltar ao Site
+                </a>
+            </div>
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL (SPA) -->
+        <main class="crm-content">
+
+            <!-- ================= 1. SECÇÃO DASHBOARD ================= -->
+            <section id="view-dashboard" class="crm-view">
+                <div class="crm-header-title">
+                    <div>
+                        <h1>Painel de Controlo</h1>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Resumo geral do sistema e estatísticas rápidas.</p>
+                    </div>
+                </div>
+
+                <!-- Cartões de Estatísticas -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>TOTAL DE CLIENTES</h3>
+                        <div class="number" id="stat-total-clientes">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>GALERIAS ATIVAS</h3>
+                        <div class="number" id="stat-galerias-ativas">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>FOTOS ARMAZENADAS</h3>
+                        <div class="number" id="stat-total-fotos">0</div>
+                    </div>
+                </div>
+
+                <div class="crm-card" style="margin-top: 20px; padding: 20px;">
+                    <h2 style="font-size: 1.1rem; margin-bottom: 10px;">Atividade Recente</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Acompanhamento e estatísticas de utilização do sistema.</p>
+                </div>
+            </section>
+
+            <!-- ================= 2. SECÇÃO CLIENTES ================= -->
+            <section id="view-clientes" class="crm-view" style="display: none;">
+                <div class="crm-header-title">
+                    <div>
+                        <h1>Gestão de Clientes</h1>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Lista completa de clientes e ações de conta.</p>
+                    </div>
+                    <button type="button" class="btn-crm-primary" onclick="abrirModalNovoCliente()">+ Novo Cliente</button>
+                </div>
+
+                <div class="crm-table-container">
+                    <table class="crm-table">
+                        <thead>
+                            <tr>
+                                <th>NOME</th>
+                                <th>EMAIL</th>
+                                <th>ESTADO</th>
+                                <th>AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <tbody id="crm-clients-list"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ================= 3. SECÇÃO GALERIAS CLIENTES (PRIVADAS) ================= -->
+            <section id="view-galerias" class="crm-view" style="display: none;">
+                <div class="crm-header-title">
+                    <div>
+                        <h1>Galerias Privadas (Clientes)</h1>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Carregamento de novas fotografias e gestão de sessões por cliente.</p>
+                    </div>
+                    <button type="button" class="btn-crm-primary" onclick="abrirModalUpload()">+ Nova Sessão / Upload</button>
+                </div>
+
+                <div class="crm-card" style="padding: 20px;">
+                    <div class="form-group" style="max-width: 400px; margin-bottom: 20px;">
+                        <label for="filtro-cliente-galeria">Selecionar Cliente:</label>
+                        <select id="filtro-cliente-galeria" class="form-input" onchange="carregarSessoesDoCliente(this.value)">
+                            <option value="">Selecione um cliente...</option>
+                        </select>
+                    </div>
+
+                    <div class="crm-table-container">
+                        <table class="crm-table">
+                            <thead>
+                                <tr>
+                                    <th>DATA SESSÃO</th>
+                                    <th>TÍTULO / DESCRICAO</th>
+                                    <th>TOTAL FOTOS</th>
+                                    <th>AÇÕES</th>
+                                </tr>
+                            </thead>
+                            <tbody id="crm-sessoes-list">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; color: #888;">
+                                        Selecione um cliente para visualizar as suas sessões.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= 4. SECÇÃO GALERIAS PÚBLICAS ================= -->
+            <section id="view-galerias-publicas" class="crm-view" style="display: none;">
+                <div class="crm-header-title">
+                    <div>
+                        <h1>Galerias Públicas (Portefólio)</h1>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Gestão de eventos, paisagens, monumentos, objetos e carrosséis públicos.</p>
+                    </div>
+                    <button type="button" class="btn-crm-primary" style="background-color: #7209b7 !important;" onclick="abrirModalEventoPublico()">🌐 + Nova Galeria Pública</button>
+                </div>
+
+                <div class="crm-card" style="padding: 20px;">
+                    <div class="crm-table-container">
+                        <table class="crm-table">
+                            <thead>
+                                <tr>
+                                    <th>DATA</th>
+                                    <th>CATEGORIA</th>
+                                    <th>TÍTULO / ORGANIZAÇÃO</th>
+                                    <th>LOCALIZAÇÃO</th>
+                                    <th>TOTAL FOTOS</th>
+                                    <th>AÇÕES</th>
+                                </tr>
+                            </thead>
+                            <tbody id="crm-galerias-publicas-list">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: #888;">
+                                        A carregar galerias públicas...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= 5. SECÇÃO CONFIGURAÇÕES ================= -->
+            <section id="view-configuracoes" class="crm-view" style="display: none;">
+                <div class="crm-header-title">
+                    <div>
+                        <h1>Configurações</h1>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Definições da conta de administrador e das categorias do portefólio.</p>
+                    </div>
+                </div>
+
+                <!-- Alterar a própria password -->
+                <div class="crm-card" style="padding: 20px; margin-bottom: 20px;">
+                    <h2 style="font-size: 1.1rem; margin-bottom: 15px;">Alterar a Minha Password</h2>
+                    <form id="form-alterar-password" style="max-width: 420px;">
+                        <div class="form-group">
+                            <label for="password-atual">Password Atual *</label>
+                            <input type="password" id="password-atual" class="form-input" autocomplete="current-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password-nova">Nova Password *</label>
+                            <input type="password" id="password-nova" class="form-input" autocomplete="new-password" minlength="8" placeholder="Mínimo 8 caracteres" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password-confirmar">Confirmar Nova Password *</label>
+                            <input type="password" id="password-confirmar" class="form-input" autocomplete="new-password" minlength="8" required>
+                        </div>
+                        <div id="password-feedback-msg" style="margin-top: 10px; font-size: 0.9rem; font-weight: 500;"></div>
+                        <div style="margin-top: 15px;">
+                            <button type="submit" class="btn-crm-primary">Alterar Password</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Gestão de categorias -->
+                <div class="crm-card" style="padding: 20px;">
+                    <h2 style="font-size: 1.1rem; margin-bottom: 5px;">Categorias do Portefólio</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">
+                        Categorias disponíveis ao criar galerias públicas. A “Página” define onde as galerias aparecem no site.
+                    </p>
+                    <div class="crm-table-container" style="margin-bottom: 20px;">
+                        <table class="crm-table">
+                            <thead>
+                                <tr>
+                                    <th>NOME</th>
+                                    <th>PÁGINA</th>
+                                    <th>GALERIAS</th>
+                                    <th>AÇÕES</th>
+                                </tr>
+                            </thead>
+                            <tbody id="config-categorias-list">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; color: #888;">A carregar categorias...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <form id="form-nova-categoria" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; max-width: 700px;">
+                        <div class="form-group" style="flex: 2; min-width: 180px; margin-bottom: 0;">
+                            <label for="nova-categoria-nome">Nova Categoria</label>
+                            <input type="text" id="nova-categoria-nome" class="form-input" placeholder="Ex: Retratos" required>
+                        </div>
+                        <div class="form-group" style="flex: 2; min-width: 180px; margin-bottom: 0;">
+                            <label for="nova-categoria-pagina">Página no site</label>
+                            <select id="nova-categoria-pagina" class="form-input">
+                                <option value="galeria-carros">galeria-carros</option>
+                                <option value="galeria-paisagens">galeria-paisagens</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-crm-primary">+ Adicionar</button>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODAL: UPLOAD SESSÃO PRIVADA -->
+    <div id="modal-upload-fotos" class="crm-modal" style="display: none;">
+        <div class="crm-modal-content">
+            <div class="crm-modal-header">
+                <h2>Criar Sessão e Carregar Fotos</h2>
+                <button class="btn-close-modal" type="button" onclick="fecharModalUpload()">&times;</button>
+            </div>
+            <form id="form-upload-fotos" enctype="multipart/form-data">
+                <input type="hidden" id="upload-cliente-id" name="cliente_id">
+                <div class="form-group">
+                    <label for="upload-cliente-nome">Cliente</label>
+                    <input type="text" id="upload-cliente-nome" class="form-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="upload-data-sessao">Data da Sessão *</label>
+                    <input type="date" id="upload-data-sessao" name="data_sessao" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="upload-titulo-sessao">Título da Sessão</label>
+                    <input type="text" id="upload-titulo-sessao" name="titulo" class="form-input" placeholder="Ex: Sessão Automóvel / Retrato (Opcional)">
+                </div>
+                <div class="form-group">
+                    <label for="input-fotos">Selecionar Fotografias (.jpg, .png) *</label>
+                    <input type="file" id="input-fotos" name="fotos" multiple accept="image/*" required class="form-input">
+                </div>
+                <div id="upload-feedback-msg" style="margin-top: 10px; font-size: 0.9rem; font-weight: 500;"></div>
+                <div class="crm-modal-footer">
+                    <button type="button" class="btn-action" style="background: #444 !important;" onclick="fecharModalUpload()">Cancelar</button>
+                    <button type="submit" class="btn-crm-primary" id="btn-submit-upload">Criar Sessão e Submeter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: NOVA GALERIA PÚBLICA -->
+    <div id="modal-evento-publico" class="crm-modal" style="display: none;">
+        <div class="crm-modal-content">
+            <div class="crm-modal-header">
+                <h2>Criar Galeria Pública</h2>
+                <button class="btn-close-modal" type="button" onclick="fecharModalEventoPublico()">&times;</button>
+            </div>
+            <form id="form-evento-publico" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="evento-categoria">Categoria *</label>
+                    <select id="evento-categoria" name="categoria_id" class="form-input" required>
+                        <option value="1">Automóveis</option>
+                        <option value="2">Paisagens</option>
+                        <option value="3">Monumentos</option>
+                        <option value="4">Objetos</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="evento-titulo">Título / Organização *</label>
+                    <input type="text" id="evento-titulo" name="titulo" class="form-input" placeholder="Ex: Trackday Estoril ou Pôr do Sol em Sintra" required>
+                </div>
+                <div class="form-group">
+                    <label for="evento-localizacao">Localização *</label>
+                    <input type="text" id="evento-localizacao" name="localizacao" class="form-input" placeholder="Ex: Terrugem, Portugal" required>
+                </div>
+                <div class="form-group">
+                    <label for="evento-data">Data *</label>
+                    <input type="date" id="evento-data" name="data_evento" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="evento-descricao">Descrição (Opcional)</label>
+                    <textarea id="evento-descricao" name="descricao" class="form-input" rows="2" placeholder="Pequena descrição sobre o álbum..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="input-fotos-evento">Fotografias (Será gerado WebP + Original JPG) *</label>
+                    <input type="file" id="input-fotos-evento" name="fotos" multiple accept="image/*" required class="form-input">
+                </div>
+                <div id="evento-feedback-msg" style="margin-top: 10px; font-size: 0.9rem; font-weight: 500;"></div>
+                <div class="crm-modal-footer">
+                    <button type="button" class="btn-action" style="background: #444 !important;" onclick="fecharModalEventoPublico()">Cancelar</button>
+                    <button type="submit" class="btn-crm-primary" id="btn-submit-evento">Publicar Galeria</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR CLIENTE -->
+    <div id="modal-editar-cliente" class="crm-modal" style="display: none;">
+        <div class="crm-modal-content">
+            <div class="crm-modal-header">
+                <h2>Editar Informações do Cliente</h2>
+                <button class="btn-close-modal" type="button" onclick="fecharModalEditarCliente()">&times;</button>
+            </div>
+            <form id="form-editar-cliente">
+                <input type="hidden" id="edit-cliente-id">
+                <div class="form-group">
+                    <label for="edit-cliente-nome">Nome Completo</label>
+                    <input type="text" id="edit-cliente-nome" name="nome" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-cliente-email">Endereço de Email</label>
+                    <input type="email" id="edit-cliente-email" name="email" class="form-input" required>
+                </div>
+                <div class="crm-modal-footer">
+                    <button type="button" class="btn-action" style="background: #444 !important;" onclick="fecharModalEditarCliente()">Cancelar</button>
+                    <button type="submit" class="btn-crm-primary">Guardar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL NOVO CLIENTE -->
+    <div id="modal-novo-cliente" class="crm-modal" style="display: none;">
+        <div class="crm-modal-content">
+            <div class="crm-modal-header">
+                <h2>Adicionar Novo Cliente</h2>
+                <button class="btn-close-modal" type="button" onclick="fecharModalNovoCliente()">&times;</button>
+            </div>
+            <form id="form-novo-cliente">
+                <div class="form-group">
+                    <label for="novo-cliente-nome">Nome Completo *</label>
+                    <input type="text" id="novo-cliente-nome" name="nome" class="form-input" placeholder="Ex: Maria Silva" required>
+                </div>
+                <div class="form-group">
+                    <label for="novo-cliente-email">Endereço de Email *</label>
+                    <input type="email" id="novo-cliente-email" name="email" class="form-input" placeholder="cliente@exemplo.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="novo-cliente-pass">Palavra-passe de Acesso *</label>
+                    <input type="password" id="novo-cliente-pass" name="password" class="form-input" placeholder="Definir password do cliente" autocomplete="new-password" required>
+                </div>
+                <div id="novo-cliente-feedback" style="margin-top: 10px; font-size: 0.9rem; font-weight: 500;"></div>
+                <div class="crm-modal-footer">
+                    <button type="button" class="btn-action" style="background: #444 !important;" onclick="fecharModalNovoCliente()">Cancelar</button>
+                    <button type="submit" class="btn-crm-primary" id="btn-submit-novo-cliente">Criar Cliente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL ADICIONAR MAIS FOTOS (SESSÃO PRIVADA) -->
+    <div id="modal-adicionar-mais-fotos" class="crm-modal" style="display: none;">
+        <div class="crm-modal-content">
+            <div class="crm-modal-header">
+                <h2 id="titulo-modal-mais-fotos">Adicionar Fotos à Sessão</h2>
+                <button class="btn-close-modal" type="button" onclick="fecharModalAdicionarMaisFotos()">&times;</button>
+            </div>
+            <form id="form-adicionar-mais-fotos" enctype="multipart/form-data">
+                <input type="hidden" id="mais-fotos-sessao-id">
+                <div class="form-group">
+                    <label for="input-mais-fotos">Selecionar Novas Fotografias (.jpg, .png) *</label>
+                    <input type="file" id="input-mais-fotos" name="fotos" multiple accept="image/*" required class="form-input">
+                </div>
+                <div id="mais-fotos-feedback-msg" style="margin-top: 10px; font-size: 0.9rem; font-weight: 500;"></div>
+                <div class="crm-modal-footer">
+                    <button type="button" class="btn-action" style="background: #444 !important;" onclick="fecharModalAdicionarMaisFotos()">Cancelar</button>
+                    <button type="submit" class="btn-crm-primary" id="btn-submit-mais-fotos">Carregar Imagens</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL GERIR FOTOS (SESSÃO PRIVADA) -->
+    <div id="modal-gerir-fotos" class="crm-modal" style="display: none;">
+        <div class="crm-modal-content" style="max-width: 800px;">
+            <div class="crm-modal-header">
+                <h2 id="titulo-modal-gerir">Gerir Fotos da Sessão</h2>
+                <button class="btn-close-modal" type="button" onclick="fecharModalGerirFotos()">&times;</button>
+            </div>
+            <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 15px;">
+                Seleciona as fotografias que pretendes remover permanentemente desta sessão.
+            </p>
+            <div id="grid-fotos-sessao" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; max-height: 400px; overflow-y: auto; padding: 10px; background: #18181b; border-radius: 8px;"></div>
+            <div class="crm-modal-footer" style="margin-top: 20px;">
+                <button type="button" class="btn-action" style="background: #444 !important;" onclick="fecharModalGerirFotos()">Cancelar</button>
+                <button type="button" class="btn-action" style="background: #d62828 !important; color: #fff;" onclick="eliminarFotosSelecionadas()">🗑️ Remover Selecionadas</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL REORDENAR FOTOS (SESSÃO PRIVADA) -->
+    <div id="modal-reordenar-fotos" class="crm-modal" style="display: none;">
+        <div class="crm-modal-content" style="max-width: 800px;">
+            <div class="crm-modal-header">
+                <h2>Alterar Ordem das Fotografias</h2>
+                <button class="btn-close-modal" type="button" onclick="fecharModalReordenar()">&times;</button>
+            </div>
+            <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 15px;">
+                Arrasta e solta as imagens para definir a sequência de exibição no site do cliente.
+            </p>
+            <div id="container-reordenar" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; max-height: 400px; overflow-y: auto; padding: 10px; background: #18181b; border-radius: 8px;"></div>
+            <div class="crm-modal-footer" style="margin-top: 20px;">
+                <button type="button" class="btn-action" style="background: #444 !important;" onclick="fecharModalReordenar()">Cancelar</button>
+                <button type="button" class="btn-crm-primary" onclick="guardarNovaOrdem()">Guardar Nova Ordem</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR GALERIA PÚBLICA -->
+    <div id="modal-editar-evento" class="crm-modal" style="display: none;">
+        <div class="crm-modal-content">
+            <div class="crm-modal-header">
+                <h2>Editar Galeria Pública</h2>
+                <button class="btn-close-modal" type="button" onclick="fecharModalEditarEvento()">&times;</button>
+            </div>
+            <form id="form-editar-evento">
+                <input type="hidden" id="evento-edit-id">
+                <div class="form-group">
+                    <label for="evento-edit-categoria">Categoria *</label>
+                    <select id="evento-edit-categoria" class="form-input" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="evento-edit-titulo">Título / Organização *</label>
+                    <input type="text" id="evento-edit-titulo" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="evento-edit-localizacao">Localização</label>
+                    <input type="text" id="evento-edit-localizacao" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="evento-edit-data">Data</label>
+                    <input type="date" id="evento-edit-data" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="evento-edit-descricao">Descrição</label>
+                    <textarea id="evento-edit-descricao" class="form-input" rows="2"></textarea>
+                </div>
+                <div id="evento-edit-feedback-msg" style="margin-top: 10px; font-size: 0.9rem; font-weight: 500;"></div>
+                <div class="crm-modal-footer">
+                    <button type="button" class="btn-action" style="background: #444 !important;" onclick="fecharModalEditarEvento()">Cancelar</button>
+                    <button type="submit" class="btn-crm-primary">Guardar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script de autenticação do Admin / CRM -->
+    <script src="js/crm.js?v=20261009b"></script>
+</body>
+
+</html>
