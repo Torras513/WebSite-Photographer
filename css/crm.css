@@ -1,0 +1,424 @@
+/* =========================================
+   PAINEL DE GESTÃO / CRM (DESKTOP FIRST)
+   ========================================= */
+body.crm-body {
+    padding-top: 0 !important;
+    /* Remove o padding do header público */
+    background-color: var(--bg-deep);
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Layout Principal: Sidebar + Conteúdo */
+.crm-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* --- SIDEBAR LATERAL --- */
+.crm-sidebar {
+    width: 260px;
+    background: var(--bg-card);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 20px;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+}
+
+.crm-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.crm-brand img {
+    height: 40px;
+    border-radius: 4px;
+}
+
+.crm-brand span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.crm-nav {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.crm-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.crm-nav a:hover,
+.crm-nav a.active {
+    background: rgba(166, 124, 82, 0.15);
+    color: var(--bronze);
+}
+
+/* --- CONTEÚDO PRINCIPAL (DIREITA) --- */
+.crm-content {
+    margin-left: 260px;
+    /* Compensa a largura da Sidebar */
+    flex: 1;
+    padding: 40px;
+    background: var(--bg-deep);
+}
+
+.crm-header-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.crm-header-title h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* CARDS DE ESTATÍSTICAS DO DASHBOARD */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-card h3 {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.stat-card .number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--bronze);
+}
+
+/* TABELA DE CLIENTES / SESSÕES */
+.crm-table-container {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.crm-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.crm-table th {
+    padding: 12px 15px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.crm-table td {
+    padding: 16px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    font-size: 0.9rem;
+}
+
+.crm-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Garantir que o contentor do footer da sidebar tem margem interior */
+.crm-footer {
+    padding-top: 20px;
+    margin-top: auto;
+    /* Empurra o botão para o fundo da sidebar mantendo o alinhamento */
+    width: 100%;
+}
+
+/* Botão Voltar ao Site Alinhado */
+.btn-crm-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    /* Evita que o botão saia da margem da sidebar */
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted, #888);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-crm-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --- BOTÃO + NOVO CLIENTE (CORREÇÃO DE APARÊNCIA) --- */
+.btn-crm-primary {
+    background: var(--bronze, #A67C52) !important;
+    color: #ffffff !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(166, 124, 82, 0.25);
+    transition: all 0.3s ease;
+}
+
+.btn-crm-primary:hover {
+    background: var(--bronze-dark, #8a6541) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(166, 124, 82, 0.35);
+}
+
+/* Botões do CRM */
+.btn-crm-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-crm-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.badge-status {
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-active {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+}
+
+/* Grupo de Botões de Ação */
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Container de botões da tabela */
+.actions-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- BOTÕES DE AÇÃO DA TABELA (REPLICANDO .btn-crm-primary) --- */
+.btn-action {
+    background: var(--bronze, #A67C52) !important;
+    color: #ffffff !important;
+    padding: 6px 12px; /* Ajuste proporcional para o tamanho compacto de tabela */
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(166, 124, 82, 0.25);
+    transition: all 0.3s ease;
+}
+
+.btn-action:hover {
+    background: var(--bronze-dark, #8a6541) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(166, 124, 82, 0.35);
+}
+
+/* Botão Editar Fotos (CRM) */
+.btn-edit {
+    background: rgba(166, 124, 82, 0.15);
+    color: var(--bronze);
+    border: 1px solid rgba(166, 124, 82, 0.3);
+}
+
+.btn-edit:hover {
+    background: var(--bronze);
+    color: white;
+}
+
+/* Botão Alterar Password */
+.btn-pass {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-pass:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+/* Botão Preview */
+.btn-preview {
+    background: transparent;
+    color: var(--text-muted);
+}
+
+.btn-preview:hover {
+    color: var(--bronze);
+}
+
+/* --- MODAL DE UPLOAD DE FOTOS --- */
+.crm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75); /* Fundo escuro transparente */
+    backdrop-filter: blur(8px); /* Efeito Glassmorphism */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.crm-modal-content {
+    background: #1e1e20;
+    border: 1px solid rgba(166, 124, 82, 0.3); /* Borda bronze suave */
+    border-radius: 12px;
+    width: 100%;
+    max-width: 480px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+}
+
+.crm-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 12px;
+}
+
+.crm-modal-header h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.btn-close-modal:hover {
+    color: #ffffff;
+}
+
+/* Campos do Formulário */
+.form-group {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: #ccc;
+}
+
+.form-input {
+    background: #121214;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 10px;
+    color: #fff;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.form-input:focus {
+    border-color: #A67C52;
+}
+
+.form-input[readonly] {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Rodapé da Modal */
+.crm-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 24px;
+}

@@ -1,0 +1,172 @@
+/* =========================================
+   PÁGINA INICIAL - MOBILE FIRST
+   ========================================= */
+.profile-section { 
+    padding: 20px 15px; 
+}
+
+/* Cartão Perfil / Sobre Mim */
+.profile-card {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column; /* Em mobile empilha foto sobre o texto */
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    overflow: hidden; /* Corta perfeitamente os limites do cartão */
+}
+
+/* Ajuste no Mobile: Altura automática para não cortar a imagem */
+.profile-photo-container { 
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+/* Foto com proporção natural no mobile */
+.profile-photo { 
+    width: 100%; 
+    height: auto; 
+    max-height: 450px; /* Limite opcional para não ocupar o ecrã todo na vertical */
+    object-fit: cover; /* Se preferires ver a imagem 100% inteira sem corte nenhum, muda para 'contain' */
+    filter: grayscale(20%);
+    border-radius: 0 !important; 
+    display: block;
+}
+
+.profile-text { 
+    padding: 25px 20px; 
+    text-align: center;
+}
+
+.profile-text h2 { 
+    font-size: 1.75rem; 
+    margin-bottom: 15px; 
+}
+
+.profile-text p { 
+    color: var(--text-muted); 
+    font-size: 0.95rem;
+}
+
+.contact-link {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 14px 20px;
+    background-color: transparent;
+    border: 1px solid var(--bronze);
+    color: var(--bronze);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.contact-link:hover { 
+    background-color: var(--bronze); 
+    color: white; 
+}
+
+/* Grelha de Álbuns */
+.container { 
+    max-width: 1100px; 
+    margin: 0 auto; 
+    padding: 40px 15px; 
+}
+
+.album-grid { 
+    display: grid; 
+    grid-template-columns: 1fr; /* 1 coluna no mobile */
+    gap: 20px; 
+}
+
+.album-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.album-card img { 
+    width: 100%; 
+    height: 220px; 
+    object-fit: cover; 
+    display: block;
+}
+
+.album-info { 
+    padding: 20px; 
+}
+
+.album-info h2 { 
+    font-size: 1.25rem; 
+    margin-bottom: 6px; 
+}
+
+.album-info p { 
+    color: var(--text-muted); 
+    font-size: 0.85rem; 
+}
+
+/* =========================================
+   ADAPTAÇÃO PARA DESKTOP
+   ========================================= */
+@media (min-width: 768px) {
+    .profile-card {
+        flex-direction: row; /* Lado a lado no desktop */
+        align-items: stretch;
+        border-radius: 20px;
+    }
+
+    /* Restabelece a proporção lateral no Desktop */
+    .profile-photo-container { 
+        flex: 0 0 38%; 
+        height: auto;
+    }
+
+    .profile-photo { 
+        height: 100%; 
+        max-height: none;
+        object-fit: cover; /* Preenchimento perfeito no painel lateral do desktop */
+    }
+
+    .profile-text { 
+        flex: 1; 
+        padding: 50px; 
+        text-align: left;
+        align-self: center;
+    }
+
+    .profile-text h2 { 
+        font-size: 2.2rem; 
+    }
+
+    .contact-link {
+        display: inline-block;
+        width: auto;
+        padding: 14px 28px;
+    }
+
+    .container { 
+        padding: 60px 20px; 
+    }
+
+    .album-grid { 
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+        gap: 30px; 
+    }
+
+    .album-card {
+        border-radius: 24px;
+    }
+
+    .album-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--bronze);
+    }
+}

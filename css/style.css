@@ -1,0 +1,248 @@
+/* =========================================
+   1. CONFIGURAÇÕES GERAIS E VARIÁVEIS
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bronze: #A67C52;          /* Bronze do Logo */
+    --bronze-dark: #825E3B;
+    --bg-deep: #0F0F0F;         /* Preto Profundo */
+    --bg-card: #1A1A1A;         /* Cinza Escuro Antracite */
+    --text-main: #E0E0E0;       /* Branco suave */
+    --text-muted: #888888;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding-top: 70px; /* Mobile-first: cabeçalho mais compacto */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+}
+
+/* =========================================
+   2. HEADER & NAVIGATION (MOBILE FIRST WITH HAMBURGER)
+   ========================================= */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(15, 15, 15, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: white;
+}
+
+.logo-image {
+    height: 40px;
+    width: auto;
+    border-radius: 4px;
+}
+
+.logo-text {
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.logo-text strong {
+    color: var(--bronze);
+}
+
+/* --- ÍCONE DO MENU HAMBÚRGUER --- */
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.menu-toggle .bar {
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animação para transformar o hambúrguer num "X" ao abrir */
+.menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+    background-color: var(--bronze);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+    background-color: var(--bronze);
+}
+
+/* --- GAVETA DO MENU EM MOBILE --- */
+.nav-menu {
+    position: fixed;
+    top: 64px; /* Logo abaixo da barra de navegação */
+    left: 0;
+    width: 100%;
+    background: rgba(15, 15, 15, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    
+    /* Escondido por padrão com efeito suave de subida/despencamento */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Estado Visível quando ativado via JS */
+.nav-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, 
+.nav-links a.active {
+    color: var(--bronze);
+}
+
+.nav-actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.nav-cta {
+    background: var(--bronze);
+    color: white !important;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 0.85rem !important;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    max-width: 250px;
+}
+
+/* =========================================
+   3. FOOTER
+   ========================================= */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* =========================================
+   ADAPTAÇÃO PARA DESKTOP (min-width: 768px)
+   ========================================= */
+@media (min-width: 768px) {
+    .menu-toggle {
+        display: none; /* Esconde o ícone de hambúrguer no PC */
+    }
+
+    .nav-menu {
+        position: static;
+        background: transparent;
+        padding: 0;
+        border: none;
+        flex-direction: row;
+        width: auto;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+        gap: 40px;
+    }
+
+    .nav-links {
+        flex-direction: row;
+        gap: 30px;
+    }
+
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+
+    .nav-actions {
+        width: auto;
+        margin: 0;
+    }
+
+    .nav-cta {
+        width: auto;
+        padding: 8px 20px;
+        border-radius: 4px;
+    }
+}

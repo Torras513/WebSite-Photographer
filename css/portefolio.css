@@ -1,0 +1,703 @@
+/* =========================================
+   1. CONFIGURAÇÕES GERAIS E VARIÁVEIS
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bronze: #A67C52;          /* Bronze do Logo */
+    --bronze-dark: #825E3B;
+    --bg-deep: #0F0F0F;         /* Preto Profundo */
+    --bg-card: #1A1A1A;         /* Cinza Escuro Antracite */
+    --text-main: #E0E0E0;       /* Branco suave */
+    --text-muted: #888888;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding-top: 70px; /* Mobile-first: cabeçalho mais compacto */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+}
+
+/* =========================================
+   2. HEADER & NAVIGATION (MOBILE FIRST WITH HAMBURGER)
+   ========================================= */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(15, 15, 15, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: white;
+}
+
+.logo-image {
+    height: 40px;
+    width: auto;
+    border-radius: 4px;
+}
+
+.logo-text {
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.logo-text strong {
+    color: var(--bronze);
+}
+
+/* --- ÍCONE DO MENU HAMBÚRGUER --- */
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.menu-toggle .bar {
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animação para transformar o hambúrguer num "X" ao abrir */
+.menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+    background-color: var(--bronze);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+    background-color: var(--bronze);
+}
+
+/* --- GAVETA DO MENU EM MOBILE --- */
+.nav-menu {
+    position: fixed;
+    top: 64px; /* Logo abaixo da barra de navegação */
+    left: 0;
+    width: 100%;
+    background: rgba(15, 15, 15, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    
+    /* Escondido por padrão com efeito suave de subida/despencamento */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Estado Visível quando ativado via JS */
+.nav-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, 
+.nav-links a.active {
+    color: var(--bronze);
+}
+
+.nav-actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.nav-cta {
+    background: var(--bronze);
+    color: white !important;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 0.85rem !important;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    max-width: 250px;
+}
+
+/* =========================================
+   3. FOOTER
+   ========================================= */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* =========================================
+   ADAPTAÇÃO PARA DESKTOP (min-width: 768px)
+   ========================================= */
+@media (min-width: 768px) {
+    .menu-toggle {
+        display: none; /* Esconde o ícone de hambúrguer no PC */
+    }
+
+    .nav-menu {
+        position: static;
+        background: transparent;
+        padding: 0;
+        border: none;
+        flex-direction: row;
+        width: auto;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+        gap: 40px;
+    }
+
+    .nav-links {
+        flex-direction: row;
+        gap: 30px;
+    }
+
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+
+    .nav-actions {
+        width: auto;
+        margin: 0;
+    }
+
+    .nav-cta {
+        width: auto;
+        padding: 8px 20px;
+        border-radius: 4px;
+    }
+}
+
+/* =========================================
+   4. CONTEÚDO PRINCIPAL (CONTAINER)
+   ========================================= */
+main.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 20px 80px; /* Espaço para o header fixo */
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   5. SECTION: SOBRE / PROFILE
+   ========================================= */
+.profile-section {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.profile-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 60px 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Efeito de brilho subtil no background */
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(166, 124, 82, 0.03) 0%,
+    transparent 60%
+  );
+  animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Overlay para suavizar a animação */
+.profile-card {
+  z-index: 1;
+}
+
+.profile-text h2 {
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #FFFFFF 0%, #D1D1D1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 20px rgba(166, 124, 82, 0.3);
+}
+
+.profile-text p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+/* =========================================
+   6. GRID DE CARTÕES (ALBUM GRID)
+   ========================================= */
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* =========================================
+   7. CARTÃO DE ÁLBUM/PROJECTO
+   ========================================= */
+.album-card {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+}
+
+/* Hover effects */
+.album-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(166, 124, 82, 0.4);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5),
+              0 0 30px rgba(166, 124, 82, 0.2);
+}
+
+/* Imagem */
+.album-card img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: brightness(0.9);
+}
+
+.album-card:hover img {
+  transform: scale(1.15);
+  filter: brightness(1.05);
+}
+
+/* Conteúdo do cartão */
+.album-info {
+  padding: 24px 30px;
+  background: linear-gradient(to top, var(--bg-card), transparent);
+  position: relative;
+}
+
+.album-info h2 {
+  font-size: 1.4rem;
+  color: #FFFFFF;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.album-info p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* =========================================
+   8. CARD CONTACTO / CTA ESPECIAL
+   ========================================= */
+.contact-card {
+  border: 2px solid var(--bronze) !important;
+}
+
+.contact-card img {
+  border-bottom: 4px solid var(--bronze) !important;
+}
+
+.contact-card:hover {
+  box-shadow: 0 25px 50px rgba(166, 124, 82, 0.4),
+              0 0 40px rgba(166, 124, 82, 0.3) !important;
+  border-color: var(--bronze) !important;
+}
+
+/* =========================================
+   9. LAYOUT AJUSTES E TIPOGRAFIA
+   ========================================= */
+/* Espaçamentos gerais */
+.main-content {
+  display: block;
+}
+
+/* Tipografia consistente */
+h2 {
+  font-weight: 600;
+  letter-spacing: 0px;
+  color: var(--text-main);
+}
+
+p {
+  font-weight: 400;
+}
+
+/* =========================================
+   10. RESPONSIVIDADE MOBILE
+   ========================================= */
+@media (max-width: 767px) {
+  main.container {
+    padding: 120px 15px 60px;
+  }
+
+  .profile-card {
+    padding: 30px 20px;
+  }
+
+  .profile-text h2 {
+    font-size: 1.8rem;
+  }
+
+  .profile-text p {
+    font-size: 1rem;
+  }
+
+  .album-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .album-card {
+    transform: none;
+  }
+
+  .album-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(166, 124, 82, 0.6) !important;
+  }
+
+  .album-card img {
+    height: 280px;
+  }
+
+  .album-info {
+    padding: 20px 20px 25px;
+  }
+
+  .album-info h2 {
+    font-size: 1.2rem;
+  }
+
+  .album-info p {
+    font-size: 0.9rem;
+  }
+}
+
+/* =========================================
+   11. TABLET (768px - 1024px)
+   ========================================= */
+@media (min-width: 768px) and (max-width: 1024px) {
+  main.container {
+    padding: 90px 25px 60px;
+  }
+
+  .profile-card {
+    padding: 50px 40px;
+    border-radius: 12px;
+  }
+
+  .profile-text h2 {
+    font-size: 2.2rem;
+  }
+
+  .album-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+
+  .album-info h2 {
+    font-size: 1.3rem;
+  }
+
+  .album-info p {
+    font-size: 0.9rem;
+  }
+}
+
+/* =========================================
+   12. DESKTOP (1024px+)
+   ========================================= */
+@media (min-width: 1025px) {
+  main.container {
+    padding: 110px 40px 90px;
+  }
+
+  .profile-card {
+    padding: 70px 50px;
+  }
+
+  .profile-text h2 {
+    font-size: 3rem;
+  }
+
+  .album-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .album-card img {
+    height: 380px;
+  }
+
+  .album-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .album-info p {
+    font-size: 1rem;
+  }
+
+  .album-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(166, 124, 82, 0.3);
+  }
+}
+
+/* =========================================
+   13. ANIMAÇÕES ADICIONAIS
+   ========================================= */
+
+/* Efeito de fade in sequencial para cada card */
+.album-card {
+  opacity: 0;
+  animation: fadeInCard 0.6s ease-out forwards;
+}
+
+.album-card:nth-child(1) { animation-delay: 0.1s; }
+.album-card:nth-child(2) { animation-delay: 0.2s; }
+.album-card:nth-child(3) { animation-delay: 0.3s; }
+.album-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover overlay com título subtil */
+.album-info::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--bronze), var(--bronze-dark));
+  opacity: 0.6;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.album-card:hover .album-info::after {
+  transform: scaleX(1);
+}
+
+/* =========================================
+   14. PREVENÇÃO DE SOBREPOR EM IMAGENS
+   ========================================= */
+.album-card img {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================================
+   15. DARK MODE / CONTEÚDO DINÂMICO
+   ========================================= */
+/* Se o site já tiver dark mode (já tem, mas para referência) */
+body {
+  background-color: var(--bg-deep);
+}
+
+/* =========================================
+   16. ELEMENTOS ESPECÍFICOS PARA LIGHTBOX FUTURO
+   ========================================= */
+/* Classe para imagens que precisam de zoom ao passar o rato */
+.galeria-img {
+  position: relative;
+}
+
+.galeria-img::after {
+  content: '→';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--text-main);
+  padding: 10px 20px;
+  border-radius: 30px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  font-size: 1.2rem;
+}
+
+.album-card:hover .galeria-img::after {
+  opacity: 1;
+}
+
+/* =========================================
+   17. BARRA DE PROGRESSO DE SCROLL
+   ========================================= */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--bronze);
+  z-index: 9999;
+  transition: width 0.1s ease;
+}
+
+/* =========================================
+   18. CUSTOM CURSOR (OPTIONAL - PARA WEBKIT)
+   ========================================= */
+/* Não incluí para não complicar, mas se quiseres: */
+@media (pointer: fine) {
+  .album-card {
+    cursor: alias; /* Mouse mais leve */
+  }
+  
+  .album-card:hover {
+    cursor: grab;
+  }
+}
+
+/* =========================================
+   19. IMPRESSÃO / PRINT
+   ========================================= */
+@media print {
+  .main-header,
+  footer,
+  .album-info p,
+  .album-info::after {
+    display: none;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .album-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
